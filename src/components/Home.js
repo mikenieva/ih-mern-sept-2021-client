@@ -8,18 +8,19 @@ import {
 } from 'react-router-dom'
 
 import ClipLoader from "react-spinners/ClipLoader";
+import UsersContext from '../context/Users/UsersContext';
 
 export default function Home() {
 
 
     // ESTADO GLOBAL
     // ADQUIRIR VALORES DEL ESTADO GLOBAL A TRAVÉS DEL CONTEXTO
-    const ctx = useContext(PetsContext)
+    const ctxPets = useContext(PetsContext)
 
     const {
         pets,
         getAllPets
-    } = ctx
+    } = ctxPets
 
 
     // SIDE EFFECTS - USEEFFECT
@@ -33,7 +34,6 @@ export default function Home() {
 
     return (
         <div>
-
 
             <div class="bg-white">
 

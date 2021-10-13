@@ -16,12 +16,20 @@ import SinglePet from './components/SinglePet';
 
 import PetsState from './context/Pets/PetsState';
 
+import UsersState from './context/Users/UsersState';
+
+import AuthRoute from './components/Routes/AuthRoute';
+import PublicRoute from './components/Routes/PublicRoute'
+import PrivateRoute from './components/Routes/PrivateRoute'
+
+import Profile from './components/User/Profile';
+
 
 
 function App() {
   return (
     <>
-
+      <UsersState>
       <PetsState>
 
         <Router>
@@ -32,22 +40,27 @@ function App() {
 
             {/* RUTAS PRIVADAS */}
             {/* SECCIÓN DE MI PERFIL */}
-
+            {/* SOLO  SI ESTÁS LOGGEADO PUEDES ACCEDER */}
+            <PrivateRoute exact path="/perfil" component={Profile} />
 
             {/* RUTAS DE AUTENTICACIÓN */}
-            <Route exact path="/iniciar-sesion" component={Login} />
-            <Route exact path="/crear-cuenta" component={Signup} />
+            {/*  NO SE VA A PODER ACCEDER A ESTAR RUTAS SI ESTÁS LOGGEADO. */}
+            <AuthRoute exact path="/iniciar-sesion" component={Login} />
+            <AuthRoute exact path="/crear-cuenta" component={Signup} />
 
+            
             {/* RUTAS PÚBLICAS */}
-            <Route exact path="/mascotas/crear" component={CreatePet} />
-            <Route exact path="/mascotas/:id" component={SinglePet} />
-            <Route exact path="/mascotas" component={Pets} />
-            <Route exact path="/" component={Home} />
+            {/* PERMITIR QUE ESTÉS LOGGEADO O NO, ACCEDER A LA RUTA */}
+            <PublicRoute exact path="/mascotas/crear" component={CreatePet} />
+            <PublicRoute exact path="/mascotas/:id" component={SinglePet} />
+            <PublicRoute exact path="/mascotas" component={Pets} />
+            <PublicRoute exact path="/" component={Home} />
 
           </Switch>
         </Router>
 
       </PetsState>
+      </UsersState>
     </>
   );
 }
